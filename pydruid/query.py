@@ -440,7 +440,7 @@ class QueryBuilder(object):
         query_type = 'scan'
         valid_parts = [
             'datasource', 'filter', 'columns', 'intervals', 'limit',
-            'batchsize', 'resultformat', 'context'
+            'batchsize', 'resultFormat', 'context'
         ]
         self.validate_query(query_type, valid_parts, args)
         return self.build_query(query_type, args)
