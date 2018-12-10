@@ -100,7 +100,6 @@ class Query(collections.MutableSequence):
         elif self.query_type == "groupBy":
             header = list(self.result[0]['event'].keys())
             header.append('timestamp')
-            header.append('version')
         else:
             raise NotImplementedError(
                 'TSV export not implemented for query type: {0}'.format(self.query_type))
@@ -120,9 +119,8 @@ class Query(collections.MutableSequence):
             elif self.query_type == "groupBy":
                 for item in self.result:
                     timestamp = item['timestamp']
-                    version = item['version']
                     w.writerow(
-                        list(item['event'].values()) + [timestamp] + [version])
+                        list(item['event'].values()) + [timestamp])
 
         f.close()
 
