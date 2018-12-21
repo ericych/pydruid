@@ -187,6 +187,11 @@ class Query(collections.MutableSequence):
                     'type: {0}'.format(self.query_type))
 
             df = pandas.DataFrame(nres)
+            
+            # Adding header for scan query as it is not JSON like.
+            if self.query_type == "scan":
+                df.columns = [self.result[0]['columns']]
+            
             return df
 
     def __str__(self):
