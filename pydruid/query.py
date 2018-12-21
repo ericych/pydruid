@@ -186,11 +186,11 @@ class Query(collections.MutableSequence):
                     'Pandas export not implemented for query '
                     'type: {0}'.format(self.query_type))
 
-            df = pandas.DataFrame(nres)
-            
-            # Adding header for scan query as it is not JSON like.
+            # Adding header if it a scan query as it is not JSON like.
             if self.query_type == "scan":
-                df.columns = [self.result[0]['columns']]
+                df = pandas.DataFrame(nres, columns=self.result[0]['columns'])
+            else:
+                df = pandas.DataFrame(nres)
             
             return df
 
