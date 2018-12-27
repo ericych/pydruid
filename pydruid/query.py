@@ -189,7 +189,7 @@ class Query(collections.MutableSequence):
             if self.query_type == "scan":
                 df = pandas.DataFrame(nres, columns=self.result[0]['columns'])
             elif self.query_type == "groupBy":
-                header = self.result[0]['event'].keys()
+                header = list(self.result[0]['event'].keys())
                 header.append('timestamp')
                 df = pandas.DataFrame(nres, columns=header)
             else:
