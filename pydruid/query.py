@@ -170,9 +170,8 @@ class Query(collections.MutableSequence):
                             for res in results]
                     nres += tres
             elif self.query_type == "groupBy":
-                nres = [list(v['event'].items()) + [('timestamp', v['timestamp'])]
+                nres = [list(v['event'].values()) + [v['timestamp']]
                         for v in self.result]
-                nres = [dict(v) for v in nres]
             elif self.query_type == "select":
                 nres = []
                 for item in self.result:
@@ -189,6 +188,10 @@ class Query(collections.MutableSequence):
             # Adding header if it a scan query as it is not JSON like.
             if self.query_type == "scan":
                 df = pandas.DataFrame(nres, columns=self.result[0]['columns'])
+            elif self.query_type == "groupBy":
+                header = self.result[0]['event'].keys()
+                header.append('timestamp')
+                df = pandas.DataFrame(nres, columns=header)
             else:
                 df = pandas.DataFrame(nres)
             
